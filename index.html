@@ -15,7 +15,7 @@
             --color-task: #4299e1;
             --color-persona: #48bb78;
             --color-context: #ed8936;
-            --color-exemplar: #e53e3e;
+            --color-example: #e53e3e;
             --color-format: #319795;
             --color-tone: #9f7aea;
         }
@@ -112,7 +112,7 @@
         .lbl-task { background-color: var(--color-task); }
         .lbl-persona { background-color: var(--color-persona); }
         .lbl-context { background-color: var(--color-context); }
-        .lbl-exemplar { background-color: var(--color-exemplar); }
+        .lbl-example { background-color: var(--color-example); }
         .lbl-format { background-color: var(--color-format); }
         .lbl-tone { background-color: var(--color-tone); }
 
@@ -232,7 +232,7 @@
         </p>
     </div>
 
-    <p>Prompts are applied effectively by organizing them into distinct structural components. By default, when we type a simple question into ChatGPT, we often omit these components, leading to generic or "hallucinated" answers. To get professional results, we must construct a prompt using its full anatomy: <strong>Task, Persona, Context, Exemplar, Format, and Tone</strong>.</p>
+    <p>Prompts are applied effectively by organizing them into distinct structural components. By default, when we type a simple question into ChatGPT, we often omit these components, leading to generic or "hallucinated" answers. To get professional results, we must construct a prompt using its full anatomy: <strong>Task, Persona, Context, Example, Format, and Tone</strong>.</p>
 
     <p>The anatomy of a well-engineered prompt ensures the model understands not just what to do, but who it represents, what context matters, and exactly how the output should look. For example, look at the structural breakdown below:</p>
 
@@ -251,7 +251,7 @@
             <span class="content-text">We are launching a new eco-friendly water bottle for fitness enthusiasts next week.</span>
         </div>
         <div class="prompt-line">
-            <span class="label lbl-exemplar">EXEMPLAR</span>
+            <span class="label lbl-example">EXAMPLE</span>
             <span class="content-text">Example: "Hydrate Better: The New Eco-Friendly Alternative"</span>
         </div>
         <div class="prompt-line">
@@ -291,9 +291,9 @@
             </div>
         </div>
         <div class="def-item">
-            <span class="label lbl-exemplar">EXEMPLAR</span>
+            <span class="label lbl-example">EXAMPLE</span>
             <div class="def-text">
-                <strong>Exemplar (Nice-to-Have)</strong>
+                <strong>Example (Nice-to-Have)</strong>
                 A real example or sample pattern of the target output. Providing an example drastically improves structural accuracy through "few-shot learning."
             </div>
         </div>
@@ -313,7 +313,7 @@
         </div>
     </div>
 
-    <p>As we see, when all components are activated, the model is highly constrained and focused. If we only want a generic brainstorming session, we might leave out the exemplar or tone constraints, but if we want production-ready copy, we must activate every element of the anatomy.</p>
+    <p>As we see, when all components are activated, the model is highly constrained and focused. If we only want a generic brainstorming session, we might leave out the example or tone constraints, but if we want production-ready copy, we must activate every element of the anatomy.</p>
 
     <p>With these structural components activated, we click send and automatically the LLM shows us only the highly relevant, optimized responses we actually need.</p>
 
@@ -325,7 +325,7 @@
         <div class="practice-item"><strong>TASK:</strong> Create a bulleted checklist of the first 3 technical things to investigate.</div>
         <div class="practice-item"><strong>PERSONA:</strong> Senior Data Analyst.</div>
         <div class="practice-item"><strong>CONTEXT:</strong> Analyzing a sudden 10% drop in website traffic this morning.</div>
-        <div class="practice-item"><strong>EXEMPLAR:</strong> "1. [System Component]: [Diagnostic Step]"</div>
+        <div class="practice-item"><strong>EXAMPLE:</strong> "1. [System Component]: [Diagnostic Step]"</div>
         <div class="practice-item"><strong>FORMAT:</strong> A clean, flat bulleted text block.</div>
         <div class="practice-item"><strong>TONE:</strong> Focus strictly on technical/server errors; do not suggest marketing campaigns or superficial fixes.</div>
         
