@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.5. Custom AI Assistants (Custom GPTs)</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --tag-mandatory: #2563eb;
+            --tag-important: #0ea5e9;
+            --tag-optional: #10b981;
+            --radius: 8px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            color: #0f172a;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #0f172a;
+            margin: 2rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: #334155;
+            font-size: 1.05rem;
+        }
+
+        strong {
+            font-weight: 600;
+        }
+
+        .media-container {
+            width: 100%;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background-color: #000;
+        }
+
+        video, img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Interactive Grid for Core Concept Rows */
+        .anatomy-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin: 1.5rem 0 2rem 0;
+        }
+
+        .anatomy-row {
+            display: flex;
+            align-items: center;
+            background-color: #f1f5f9;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 0.75rem 1rem;
+            gap: 1rem;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .badge-blue { background-color: var(--tag-mandatory); }
+        .badge-sky { background-color: var(--tag-important); }
+        .badge-green { background-color: var(--tag-optional); }
+
+        .anatomy-text {
+            font-family: monospace;
+            color: #0f172a;
+            font-size: 0.95rem;
+        }
+
+        /* Detailed Component Cards */
+        .components-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .component-card {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            background-color: #fafafa;
+        }
+
+        .component-details strong {
+            display: block;
+            color: #0f172a;
+            font-size: 1.05rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .component-details {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* Practice Section */
+        .practice-box {
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .practice-box h2 {
+            margin-top: 0;
+            color: #1e40af;
+        }
+
+        .prompt-spec {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        /* Download Button Section */
+        .cta-container {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 0.85rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            border: none;
+        }
+
+        .download-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1.25rem;
+            }
+            .anatomy-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .component-card {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Topic Header -->
+    <h1>1.5. Custom AI Assistants (Custom GPTs)</h1>
+    <p><em>Leveraging tailored AI models trained on internal organization knowledge to deliver accurate, aligned, and context-specific workflows.</em></p>
+
+    <!-- Embedded Video Player -->
+    <div class="media-container">
+        <video controls width="100%">
+            <source src="F:/ECA Op/2026/2026 - Work/Entinco/2026 - 07/AIAccelerator/Videos/Slide12.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Explanatory Content -->
+    <p>Another powerful component is the use of <strong>custom AI assistants</strong>, sometimes referred to as <strong>Custom GPTs</strong>.</p>
+
+    <p>These assistants can be trained using an organization's internal knowledge, not just public data. This allows them to produce outputs that are more relevant, accurate, and aligned with the company's context.</p>
+
+    <p>Instead of providing the assistants directly, we provide something called an assistant brief. This is a document that explains how to create and configure the assistant, including what knowledge to include.</p>
+
+    <p>It is also important to remember that these assistants are not static. They need to be continuously updated and improved as new knowledge becomes available.</p>
+
+    <!-- Visual Figure / Slide Image -->
+    <div class="media-container" style="background-color: transparent;">
+        <img src="../Figures/Slide12.PNG" alt="Custom AI Assistants Setup Diagram">
+    </div>
+
+    <!-- Core Concept Breakdown Grid -->
+    <div class="anatomy-grid">
+        <div class="anatomy-row">
+            <span class="badge badge-blue">INTERNAL DATA</span>
+            <span class="anatomy-text">ORGANIZATIONAL KNOWLEDGE: Grounded in proprietary internal data, not public web data.</span>
+        </div>
+        <div class="anatomy-row">
+            <span class="badge badge-sky">ASSISTANT BRIEF</span>
+            <span class="anatomy-text">CONFIGURATION GUIDE: Document mapping how to build, instruct, and equip the GPT.</span>
+        </div>
+        <div class="anatomy-row">
+            <span class="badge badge-green">DYNAMIC UPDATES</span>
+            <span class="anatomy-text">CONTINUOUS IMPROVEMENT: Regularly updated as business knowledge evolves.</span>
+        </div>
+    </div>
+
+    <!-- Detailed Components List -->
+    <h2>Key Components of Custom Assistants</h2>
+    <p>Deploying specialized AI assistants provides structural advantages for team alignment and process automation:</p>
+
+    <div class="components-list">
+        <div class="component-card">
+            <span class="badge badge-blue">CONTEXT ALIGNMENT</span>
+            <div class="component-details">
+                <strong>High Relevance & Contextual Accuracy</strong>
+                By bypassing generic web data in favor of organization-specific documents, outputs directly reflect company guidelines, terminology, and operational requirements.
+            </div>
+        </div>
+
+        <div class="component-card">
+            <span class="badge badge-sky">ASSISTANT BRIEF</span>
+            <div class="component-details">
+                <strong>Deployment via Assistant Briefs</strong>
+                Instead of providing raw assistants directly, teams use an <em>assistant brief</em>—a master document detailing instructions, configuration steps, and specific knowledge files to upload.
+            </div>
+        </div>
+
+        <div class="component-card">
+            <span class="badge badge-green">LIFECYCLE MANAGEMENT</span>
+            <div class="component-details">
+                <strong>Non-Static Maintenance</strong>
+                Assistants are active tools rather than static files. They require ongoing refinement and knowledge base updates whenever business processes or policies shift.
+            </div>
+        </div>
+    </div>
+
+    <!-- Practice Section -->
+    <div class="practice-box">
+        <h2>Practice</h2>
+        <p>Analyse a Custom AI Assistant Brief</strong> for a custom GPT within your organization following this structure:</p>
+        
+        <div class="prompt-spec">
+            <div><strong>RESOURCE TYPE:</strong> Custom AI Assistant</div>
+            <div><strong>INSTRUCTIONS:</strong> Download, read the attached file, and answer the following questions.</div>
+            <div><strong>INTERNAL KNOWLEDGE:</strong> Which areas of your business would you apply this resource to?</div>
+            <div><strong>MAINTENANCE:</strong> Considering your organization, how often do you think this brief should be updated?</div>
+        </div>
+
+    </div>
+
+    <!-- Action Callout / Download Section -->
+    <div class="cta-container">
+        <a href="../Documents/Course _Planner_Assistant_Brief.docx" download class="download-btn">
+            📥 Download the Course Planner Assistant Brief
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

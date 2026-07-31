@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.4. Document Templates with Embedded SOPs</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --tag-mandatory: #2563eb;
+            --tag-important: #0ea5e9;
+            --tag-optional: #10b981;
+            --radius: 8px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            color: #0f172a;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #0f172a;
+            margin: 2rem 0 1rem 0;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: #334155;
+            font-size: 1.05rem;
+        }
+
+        .media-container {
+            width: 100%;
+            margin: 1.5rem 0 2rem 0;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background-color: #000;
+        }
+
+        video, img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Interactive Grid for Core Concept Rows */
+        .anatomy-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin: 1.5rem 0 2rem 0;
+        }
+
+        .anatomy-row {
+            display: flex;
+            align-items: center;
+            background-color: #f1f5f9;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 0.75rem 1rem;
+            gap: 1rem;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .badge-blue { background-color: var(--tag-mandatory); }
+        .badge-sky { background-color: var(--tag-important); }
+        .badge-green { background-color: var(--tag-optional); }
+
+        .anatomy-text {
+            font-family: monospace;
+            color: #0f172a;
+            font-size: 0.95rem;
+        }
+
+        /* Detailed Component Cards */
+        .components-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .component-card {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            background-color: #fafafa;
+        }
+
+        .component-details strong {
+            display: block;
+            color: #0f172a;
+            font-size: 1.05rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .component-details {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        /* Practice Section */
+        .practice-box {
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .practice-box h2 {
+            margin-top: 0;
+            color: #1e40af;
+        }
+
+        .prompt-spec {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: var(--radius);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        /* Download Button Section */
+        .cta-container {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 0.85rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            border: none;
+        }
+
+        .download-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1.25rem;
+            }
+            .anatomy-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .component-card {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Topic Header -->
+    <h1>1.4. Document Templates with Embedded SOPs</h1>
+    <p><em>Combining document templates with embedded standard operating procedures and AI prompts to guide users directly within their workflow artifacts.</em></p>
+
+    <!-- Embedded Video Player -->
+    <div class="media-container">
+        <video controls width="100%">
+            <source src="../Videos/Slide11.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <!-- Explanatory Content -->
+    <p>In many cases, <strong>templates and SOPs are combined</strong>. Most textual templates include embedded instructions and AI prompts, guiding users directly within the document.</p>
+
+    <p>This means you don't need to switch between different resources. You get guidance exactly when you need it.</p>
+
+    <!-- Visual Figure / Slide Image -->
+    <div class="media-container" style="background-color: transparent;">
+        <img src="../Figures/Slide11.PNG" alt="Document Templates with Embedded SOPs Breakdown">
+    </div>
+
+    <!-- Example Breakdown Grid -->
+    <div class="anatomy-grid">
+        <div class="anatomy-row">
+            <span class="badge badge-blue">INTEGRATED SOP</span>
+            <span class="anatomy-text">DIRECT GUIDANCE: Instructions embedded straight into textual template fields.</span>
+        </div>
+        <div class="anatomy-row">
+            <span class="badge badge-sky">EMBEDDED PROMPTS</span>
+            <span class="anatomy-text">IN-CONTEXT AI: Prompts built directly into document sections for immediate use.</span>
+        </div>
+    </div>
+
+    <!-- Detailed Components List -->
+    <h2>Benefits of Embedded SOPs</h2>
+    <p>Combining templates and operational procedures directly inside documents yields key efficiency and accuracy improvements:</p>
+
+    <div class="components-list">
+        <div class="component-card">
+            <span class="badge badge-blue">COGNITIVE LOAD</span>
+            <div class="component-details">
+                <strong>Reduced Cognitive Load & Friction</strong>
+                By delivering step-by-step guidance right where the work happens, users spend less mental energy navigating back and forth between guidelines and workspace.
+            </div>
+        </div>
+
+        <div class="component-card">
+            <span class="badge badge-sky">ERROR REDUCTION</span>
+            <div class="component-details">
+                <strong>Minimized Errors & Smoother Process</strong>
+                In-line instructions keep users on track, preventing missed steps and streamlining the entire drafting workflow.
+            </div>
+        </div>
+
+        <div class="component-card">
+            <span class="badge badge-green">QUALITY CONTROL</span>
+            <div class="component-details">
+                <strong>Reinforced Consistency & Quality</strong>
+                Having pre-formulated prompts built directly into the file guarantees that all produced outputs strictly meet enterprise standards.
+            </div>
+        </div>
+    </div>
+
+    <p>As a result, cognitive load is reduced, errors are minimized, and the overall process becomes smoother while reinforcing consistency and quality across all outputs.</p>
+
+    <!-- Practice Section -->
+    <div class="practice-box">
+        <h2>Practice</h2>
+        <p>Test an embedded template workflow by filling out a section of the Course Outline Template using inline instructions directly from the document contract below:</p>
+        
+        <div class="prompt-spec">
+            <div><strong>DOCUMENT SECTION:</strong> Introduccion</div>
+            <div><strong>INLINE INSTRUCTIONS:</strong> State the problem and primary user persona.</div>
+            <div><strong>EMBEDDED PROMPT:</strong> "Write the “Introduction” section of the document. Explain the purpose of the Course Outline document, what planning decisions it captures, and how it is used by Course Planner and Course Creator. Describe how the document supports alignment before course development begins. Write the output as one concise paragraph under 150 words. Audience: "Executives, Marketing, and Course Development teams"</div>
+        </div>
+
+        <p>Run the embedded prompt inside your workspace and confirm that the resulting text satisfies both the document layout and procedural goals without leaving your document editor.</p>
+    </div>
+
+    <!-- Action Callout / Download Section -->
+   <div class="cta-container">
+    <a href="../Documents/Course_Outline_Template.docx" download class="download-btn">
+        📥 Download Course Outline Template
+    </a>
+   </div>
+</div>
+
+<script>
+    function downloadEmbeddedSOPPack() {
+        alert("Downloading Course Outline Template Pack...");
+    }
+</script>
+
+</body>
+</html>
